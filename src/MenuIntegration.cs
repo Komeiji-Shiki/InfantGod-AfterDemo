@@ -30,7 +30,7 @@ namespace Graywill.InfantGodAfterDemo
         {
             if (!owner.Enabled || !NativeUiAccess.Alive(list)) return;
             var existing = list.GetChild(EntryName)?.asButton;
-            if (NativeUiAccess.Alive(existing)) { entry = existing; return; }
+            if (NativeUiAccess.Alive(existing)) { entry = existing; NativeMenuEntries.Refresh(list); return; }
             var template = AccessTools.Field(typeof(OSManager), "_workspaceQuickLoadButton").GetValue(os) as GButton;
             if (!NativeUiAccess.Alive(template) || string.IsNullOrEmpty(template.resourceURL)) return;
             var package = UIPackage.GetItemByURL(template.resourceURL)?.owner;
@@ -59,26 +59,14 @@ namespace Graywill.InfantGodAfterDemo
             int insertAt = Math.Min(4, list.numChildren);
             var normalSave = list.GetChild("InfantGodSaveManager_NormalSave");
             if (normalSave != null) insertAt = Math.Max(insertAt, list.GetChildIndex(normalSave) + 1);
-            ResizeForChange(list, () => list.AddChildAt(button, insertAt));
+            NativeMenuEntries.Change(list, () => list.AddChildAt(button, insertAt));
             entry = button;
-        }
-
-        private static void ResizeForChange(GList list, Action change)
-        {
-            var menu = list.parent;
-            if (!NativeUiAccess.Alive(menu)) return;
-            float height = list.height, bottom = menu.y + menu.height;
-            change();
-            list.ResizeToFit(list.numChildren);
-            // 只在实际增删时应用当前高度差，两个独立 Mod 不会在轮询中反复挤动菜单。
-            menu.height += list.height - height;
-            menu.y = bottom - menu.height;
         }
 
         private void RemoveEntry()
         {
             if (NativeUiAccess.Alive(entry) && entry.parent is GList list && NativeUiAccess.Alive(list))
-                ResizeForChange(list, () => list.RemoveChild(entry, true));
+                NativeMenuEntries.Change(list, () => list.RemoveChild(entry, true));
             entry = null;
         }
 

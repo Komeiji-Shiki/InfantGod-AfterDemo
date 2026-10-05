@@ -13,6 +13,7 @@ tags: #hub #reach
 <<ChangeController Window_LiveStream Tutorial None>>
 <<AllowDanmakuType default>>
 <<LoadDanmaku>>
+<<AfterDemoDailyInformation>>
 <<ChangeController WorkSpace Overlay DayStart>>
 ===
 
@@ -20,6 +21,7 @@ title: AfterDemo_Welcome
 tags: #hub #reach
 ---
 <<ChangeController WorkSpace Overlay Blank>>
+<<AfterDemoDailyInformation>>
 <<Solo Aistalt>>
 <<AfterDemoRefresh>>
 <<if $AfterDemo_ErrorCount > 0>>
@@ -113,6 +115,7 @@ tags: #hub #reach
 <<AfterDemoFinished>>
 -> 结束补充直播，查看新的简报
     <<AddNews News_Day8_Main_1>>
+    <<SendNewspaper>>
     <<AddPlayerInfo Info_Day8>>
     Aistalt: 等一下，监督。新的简报刚刚送到了。 #line:ad100007
     Aistalt: 洪水行动……看起来，我们的日常直播就先到这里了。 #line:ad100008
@@ -147,4 +150,5 @@ title: AfterDemo_Variables
 <<declare $AfterDemo_UnseenCount = 0>>
 <<declare $AfterDemo_ErrorCount = 0>>
 <<declare $AfterDemo_Closed = false>>
+<<declare $AfterDemo_NewspaperPublishedDay = 0>>
 ===

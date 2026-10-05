@@ -69,6 +69,7 @@ namespace Graywill.InfantGodAfterDemo
                 {
                     runner.RemoveCommandHandler("AfterDemoRefresh");
                     runner.RemoveCommandHandler("AfterDemoFinished");
+                    runner.RemoveCommandHandler("AfterDemoDailyInformation");
                 }
             view?.Dispose();
             Menu?.Dispose();
@@ -112,6 +113,7 @@ namespace Graywill.InfantGodAfterDemo
             if (!registered.Add(runner)) return;
             runner.AddCommandHandler("AfterDemoRefresh", (Action)Refresh);
             runner.AddCommandHandler("AfterDemoFinished", (Action)OpenProgress);
+            runner.AddCommandHandler("AfterDemoDailyInformation", (Action)DailyInformation.Prepare);
         }
 
         internal void OpenProgress()
