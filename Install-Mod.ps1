@@ -32,7 +32,7 @@ if ($taskExisting) {
     foreach ($taskRecord in $taskExisting.files) { $taskRecords.Add($taskRecord); $taskRecorded.Add([string]$taskRecord.path) | Out-Null }
 }
 New-Item -ItemType Directory -Path $taskBackup -Force | Out-Null
-$taskState = [ordered]@{ status='Installing'; version='1.0.1'; backupRoot=$taskBackup; files=$taskRecords }
+$taskState = [ordered]@{ status='Installing'; version='1.0.2'; backupRoot=$taskBackup; files=$taskRecords }
 foreach ($taskRelativeRoot in @($taskPlugin,$taskNative)) {
     $taskSourceRoot = Join-Path $PSScriptRoot $taskRelativeRoot
     foreach ($taskFile in Get-ChildItem -LiteralPath $taskSourceRoot -File -Recurse) {
