@@ -103,10 +103,7 @@ def main():
                                condition=condition,
                                oneShotEntry='once' in entry['when']))
     (ROOT / 'data/events.json').write_text(json.dumps(events, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
-    declarations = '\n'.join('<<declare $AfterDemo_Can_' + event['id'] + ' = ' + event['condition'] + '>>' for event in events)
-    (ROOT / 'native-mod/InfantGodAfterDemo/Yarn/Conditions.yarn').write_text(
-        '// 此文件由 tools/build_catalog.py 生成，前置条件仍由游戏 Yarn 求值。\n'
-        'title: AfterDemo_Conditions\n---\n' + declarations + '\n===\n', encoding='utf-8')
+    # 该文件仅保留原作中文显示辅助；实际候选和条件由运行时合并后的角色 Mod 动态生成。
     print('已提取 ' + str(len(events)) + ' 个随机直播事件，来自 ' + str(len(set(e['entry'] for e in events))) + ' 个入口。')
 
 

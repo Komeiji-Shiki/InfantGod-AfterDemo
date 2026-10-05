@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Reflection;
+using System.Linq;
 using HarmonyLib;
 using InfantGod.UI.WindowSystem;
 using Yarn.Unity;
@@ -33,10 +34,27 @@ namespace Graywill.InfantGodAfterDemo
         private static bool Prefix(string nodeName, ref bool __result)
         {
             var host = AfterDemoHost.Instance;
-            if (host == null || !host.Active || !nodeName.StartsWith("Live_Entry_", StringComparison.Ordinal)) return true;
+            if (host == null || !host.Active) return true;
             host.Refresh();
+            if (!nodeName.StartsWith("Live_Entry_", StringComparison.Ordinal) && !host.Catalog.HasEntry(nodeName)) return true;
             __result = !host.Closed && host.Catalog.ErrorCount == 0 && host.Catalog.ReadyForEntry(nodeName).Count > 0;
             return false;
+        }
+    }
+
+    [HarmonyPatch(typeof(NPCLiveOptionManager), "FindAvailableNodes")]
+    internal static class AdditionalCandidatePatch
+    {
+        private static readonly MethodInfo Evaluate = AccessTools.Method(typeof(NPCLiveOptionManager), "EvaluateNode");
+        private static void Postfix(NPCLiveOptionManager __instance, string baseNodeName, object __result)
+        {
+            var host = AfterDemoHost.Instance;
+            if (host == null || !host.Active || baseNodeName != "Live_Entry" || !(__result is IList list)) return;
+            foreach (string entry in host.Catalog.Events.Select(e => e.entry).Distinct().Where(e => !e.StartsWith("Live_Entry_", StringComparison.Ordinal)))
+            {
+                object candidate = Evaluate.Invoke(__instance, new object[] { entry });
+                if (candidate != null) list.Add(candidate);
+            }
         }
     }
 
