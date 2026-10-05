@@ -178,9 +178,7 @@ namespace Graywill.InfantGodAfterDemo
                 var description = panel.GetChild("desc");
                 if (NativeUiAccess.Alive(description)) description.text =
                     "今天继续安排尚未触发的直播事件。新的主线简报将在补充直播收束后发布。\n\n"
-                    + (hasSidebar ? "右侧随机新闻栏继续按原生日程供稿。"
-                        : "右侧当前没有符合原生日期及未读条件的随机新闻。")
-                    + "当前存档没有保留主线版面，这里仅显示日程说明，不补写主线历史。";
+                    + (hasSidebar ? "今日其他报道详见右侧新闻栏。" : "本日暂无其他新闻。");
                 var image = panel.GetController("HasImg");
                 if (image != null) image.selectedPage = "no";
             }
