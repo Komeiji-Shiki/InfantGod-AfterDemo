@@ -32,7 +32,7 @@ if ($taskExisting) {
     foreach ($taskRecord in $taskExisting.files) { $taskRecords.Add($taskRecord); $taskRecorded.Add([string]$taskRecord.path) | Out-Null }
 }
 New-Item -ItemType Directory -Path $taskBackup -Force | Out-Null
-$taskState = [ordered]@{ status='Installing'; version='1.0.0'; backupRoot=$taskBackup; files=$taskRecords }
+$taskState = [ordered]@{ status='Installing'; version='1.0.1'; backupRoot=$taskBackup; files=$taskRecords }
 foreach ($taskRelativeRoot in @($taskPlugin,$taskNative)) {
     $taskSourceRoot = Join-Path $PSScriptRoot $taskRelativeRoot
     foreach ($taskFile in Get-ChildItem -LiteralPath $taskSourceRoot -File -Recurse) {
@@ -56,4 +56,4 @@ foreach ($taskRelativeRoot in @($taskPlugin,$taskNative)) {
 $taskState.status = 'Installed'
 $taskState | ConvertTo-Json -Depth 8 | Set-Content -LiteralPath $taskStatePath -Encoding utf8
 Write-Output '第八天以后已安装。进入游戏后在 设置 → Mod 管理器 启用，再重新载入存档。'
-Write-Output 'F10 打开事件进度。第八天开始自动接入补充直播日程。'
+Write-Output '在游戏开始菜单点击“续玩进度”查看事件。第八天开始自动接入补充直播日程。'

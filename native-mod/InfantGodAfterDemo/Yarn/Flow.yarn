@@ -26,7 +26,7 @@ tags: #hub #reach
     <<jump AfterDemo_Error>>
 <<elseif $AfterDemo_ReadyCount > 0>>
     Aistalt: 监督，今天继续匹配还没有聊过的直播事件。 #line:ad100001
-    Aistalt: 当前可以开始的事件有 {$AfterDemo_ReadyCount} 个。按 F10 可以查看进度。 #line:ad100002
+    Aistalt: 当前可以开始的事件有 {$AfterDemo_ReadyCount} 个。开始菜单里的“续玩进度”可以查看详情。 #line:ad100002
     <<ChangeController Window_LiveStream CanLive yes>>
 <<else>>
     <<jump AfterDemo_Finished>>
@@ -108,7 +108,7 @@ tags: #hub #reach
     Aistalt: 当前续玩目录中的随机直播事件已经全部触发过了。感谢陪我聊到这里，监督。 #line:ad100004
 <<else>>
     Aistalt: 当前剧情分支中，可以继续触发的随机直播事件已经完成。 #line:ad100005
-    Aistalt: 还有 {$AfterDemo_UnseenCount} 个未见事件受到剧情前置或互斥选择限制。F10 可以查看具体条件。 #line:ad100006
+    Aistalt: 还有 {$AfterDemo_UnseenCount} 个未见事件受到剧情前置或互斥选择限制。“续玩进度”里可以查看具体条件。 #line:ad100006
 <<endif>>
 <<AfterDemoFinished>>
 -> 结束补充直播，查看新的简报
@@ -129,7 +129,7 @@ tags: #hub #reach
 <<EndLiveStatus>>
 <<ChangeController Window_LiveStream CanLive no>>
 <<ChangeController Window_LiveStream CanEndLive no>>
-Aistalt: 续玩目录暂时没有准备好。请按 F10 查看具体原因，再重新载入存档。 #line:ad100010
+Aistalt: 续玩目录暂时没有准备好。请在开始菜单的“续玩进度”中查看具体原因，再重新载入存档。 #line:ad100010
 <<AfterDemoFinished>>
 ===
 

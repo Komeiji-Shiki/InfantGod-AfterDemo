@@ -17,7 +17,7 @@ try {
     $env:DOTNET_CLI_HOME = $taskOldCliHome
     $env:DOTNET_CLI_TELEMETRY_OPTOUT = $taskOldTelemetry
 }
-$taskOutput = Join-Path $PSScriptRoot 'dist\InfantGod-AfterDemo-v1.0.0'
+$taskOutput = Join-Path $PSScriptRoot 'dist\InfantGod-AfterDemo-v1.0.1'
 $taskPlugin = Join-Path $taskOutput 'BepInEx\plugins\InfantGodAfterDemo'
 $taskNative = Join-Path $taskOutput 'Aistalt_Data\StreamingAssets\Mods'
 New-Item -ItemType Directory -Path $taskPlugin,$taskNative -Force | Out-Null
@@ -31,6 +31,6 @@ Copy-Item -LiteralPath (Join-Path $PSScriptRoot 'native-mod\InfantGodAfterDemo')
 foreach ($taskName in @('Install-Mod.ps1','Uninstall-Mod.ps1','Installer-Common.ps1','README.md','ATTRIBUTIONS.txt','THIRD-PARTY-NOTICES.md','LICENSES')) {
     Copy-Item -LiteralPath (Join-Path $PSScriptRoot $taskName) -Destination $taskOutput -Recurse -Force
 }
-$taskZip = Join-Path $PSScriptRoot 'dist\InfantGod-AfterDemo-v1.0.0.zip'
+$taskZip = Join-Path $PSScriptRoot 'dist\InfantGod-AfterDemo-v1.0.1.zip'
 Compress-Archive -Path $taskOutput -DestinationPath $taskZip -Force
 Write-Output "安装包：$taskZip"

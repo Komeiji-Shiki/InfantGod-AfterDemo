@@ -9,7 +9,7 @@ using UnityEngine.SceneManagement;
 
 namespace Graywill.InfantGodAfterDemo
 {
-    [BepInPlugin("graywill.infantgod.afterdemo", "幼神·第八天以后", "1.0.0")]
+    [BepInPlugin("graywill.infantgod.afterdemo", "幼神·第八天以后", "1.0.1")]
     [BepInProcess("Aistalt.exe")]
     public sealed class Plugin : BaseUnityPlugin
     {

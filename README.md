@@ -1,6 +1,6 @@
 # 幼神 · 第八天以后
 
-独立的《幼神 Demo》续玩 Mod，版本 **1.0.0**。从第八天开始继续尚未触发的随机直播内容，并把原本的洪水简报和 Demo 收束推迟到补充直播结束后。
+独立的《幼神 Demo》续玩 Mod，版本 **1.0.1**。从第八天开始继续尚未触发的随机直播内容，并把原本的洪水简报和 Demo 收束推迟到补充直播结束后。
 
 ## 游戏中的变化
 
@@ -24,7 +24,9 @@
    如游戏安装在其他位置，把 `GamePath` 改为包含 `Aistalt.exe` 的目录。
 
 3. 启动游戏，在 **设置 → Mod 管理器** 中启用 **幼神·第八天以后**，然后重新载入存档。
-4. 第八天开始自动接入补充直播。点击右上角的 **第八天以后 · F10**，或按 **F10** 查看已触发、当前可触发和受到剧情条件限制的事件；**Esc** 关闭窗口。
+4. 第八天开始自动接入补充直播。在游戏桌面打开**开始菜单 → 续玩进度**，查看已触发、当前可触发和受到剧情条件限制的事件；窗口中的**关闭**按钮返回游戏。
+
+1.0.1 将入口放进原生开始菜单，并改用原生 FGUI 进度窗口、按钮和滚动列表。安装多存档管理 Mod 时，“续玩进度”排在“普通保存”后面，保留原生快存/快读位置。
 
 可以和资料终端、弹幕 Mod 同时安装。此项目使用自己的插件目录、原生 Mod 目录和安装记录。已存在的 BepInEx 5 会直接复用；没有加载器时，安装包提供 BepInEx 5.4.23.5 x64。
 
@@ -34,7 +36,7 @@
 
 目录读取游戏按启用状态与载入顺序合并后的实际节点。遵循原作 `Live_Entry_角色名`、`Character: 角色定义名` 和固定 `<<jump 事件组>>` 约定的 Mod 会自动加入；直接把正文写在连线入口中的 Mod 也可以识别。角色原有的 `when` 剧情条件仍交由游戏 Yarn 执行，只有明确写出的 `$Today`、`$CurrentHour`、`$CurrentMinute`、`$LineCount` 和 `$Minor_Token` 排期条件会放宽。自定义函数内部的规则保持原样。
 
-本 Mod 不覆盖其他角色 Mod 的文件。它在游戏自己的合并编译阶段，单独生成临时的续玩条件；角色内容、启用状态、载入顺序或兼容配置改变后，会沿游戏的重新载入流程重建目录。新安装的角色产生可达事件时，已经收束的续玩存档也会重新开放，F10 窗口中可以点击“继续匹配未见事件”。已经处于原结束界面的会话仍需先读档。
+本 Mod 不覆盖其他角色 Mod 的文件。它在游戏自己的合并编译阶段，单独生成临时的续玩条件；角色内容、启用状态、载入顺序或兼容配置改变后，会沿游戏的重新载入流程重建目录。新安装的角色产生可达事件时，已经收束的续玩存档也会重新开放，“续玩进度”窗口中可以点击“继续匹配未见事件”。已经处于原结束界面的会话仍需先读档。
 
 特殊 Mod 若使用其他入口前缀，或入口中含多个可能的跳转，可以编辑游戏目录中的 `BepInEx/config/graywill.infantgod.afterdemo.cfg`，例如：
 
@@ -44,7 +46,7 @@ AdditionalEntryPrefixes = CustomLive_,DLC_Live_
 EntryTargets = {"CustomLive_MyCharacter":"MyCharacter_Story"}
 ```
 
-`EntryTargets` 明确指定一个入口对应的事件或事件组。入口仍需提供原作卡片系统要求的 `Character` 头。修改后在游戏中重新载入 Mod 并读档。不能自动识别的特殊入口会列在 F10 窗口中，不会静默当成已经完成。
+`EntryTargets` 明确指定一个入口对应的事件或事件组。入口仍需提供原作卡片系统要求的 `Character` 头。修改后在游戏中重新载入 Mod 并读档。不能自动识别的特殊入口会列在“续玩进度”窗口中，不会静默当成已经完成。
 
 ## 卸载与停用
 
@@ -68,8 +70,8 @@ powershell -ExecutionPolicy Bypass -File .\Uninstall-Mod.ps1 -GamePath 'B:\Steam
 
 构建会从已安装游戏读取授权脚本，生成原作事件的中文显示辅助资料，然后编译插件。实际事件目录和保留剧情前置的 Yarn 条件在游戏合并当前启用的 Mod 后动态生成。构建输出：
 
-- `dist/InfantGod-AfterDemo-v1.0.0/`：完整安装包目录。
-- `dist/InfantGod-AfterDemo-v1.0.0.zip`：可分发安装包。
+- `dist/InfantGod-AfterDemo-v1.0.1/`：完整安装包目录。
+- `dist/InfantGod-AfterDemo-v1.0.1.zip`：可分发安装包。
 
 游戏的 InfantGod、Unity、Yarn Spinner 等程序集仅用于编译引用，不进入交付包。首次准备 BepInEx 构建依赖时会从官方 GitHub 下载，已缓存后不需要重复下载。
 
@@ -81,7 +83,8 @@ powershell -ExecutionPolicy Bypass -File .\Uninstall-Mod.ps1 -GamePath 'B:\Steam
 - `native-mod/InfantGodAfterDemo/Yarn/`：补充直播、结束日程和延后简报。
 - `src/EventCatalog.cs`：运行时精确节点映射、旧访问记录识别、条件判定。
 - `src/Patches.cs`：仅在本 Mod 启用且日期达到第八天时接管入口与日程跳转。
-- `src/AfterDemoHost.cs`：持久宿主、原生命令绑定、事件路由和游戏内进度窗口。
+- `src/AfterDemoHost.cs`：持久宿主、原生命令绑定和事件路由。
+- `src/MenuIntegration.cs`、`src/ProgressWindow.cs`：原生开始菜单入口与进度窗口。
 
 ## 当前验证边界
 
