@@ -1,0 +1,150 @@
+title: AfterDemo_Initial
+tags: #hub #reach
+---
+<<set $LineCount = 0>>
+<<set $Minor_Token = true>>
+<<set $InitialExecutedDay = $Today>>
+<<RemoveAllNPC>>
+<<ClearOptions>>
+<<ChangeController WorkSpace IsClockOut no>>
+<<ChangeController Window_LiveStream CanEndLive no>>
+<<ChangeController Window_LiveStream CanLive no>>
+<<ChangeController Window_LiveStream CanChangePerson yes>>
+<<ChangeController Window_LiveStream Tutorial None>>
+<<AllowDanmakuType default>>
+<<LoadDanmaku>>
+<<ChangeController WorkSpace Overlay DayStart>>
+===
+
+title: AfterDemo_Welcome
+tags: #hub #reach
+---
+<<ChangeController WorkSpace Overlay Blank>>
+<<Solo Aistalt>>
+<<AfterDemoRefresh>>
+<<if $AfterDemo_ErrorCount > 0>>
+    <<jump AfterDemo_Error>>
+<<elseif $AfterDemo_ReadyCount > 0>>
+    Aistalt: 监督，今天继续匹配还没有聊过的直播事件。 #line:ad100001
+    Aistalt: 当前可以开始的事件有 {$AfterDemo_ReadyCount} 个。按 F10 可以查看进度。 #line:ad100002
+    <<ChangeController Window_LiveStream CanLive yes>>
+<<else>>
+    <<jump AfterDemo_Finished>>
+<<endif>>
+===
+
+title: AfterDemo_Live
+tags: #hub #reach
+---
+<<StartDanmaku>>
+<<StartLiveStatus>>
+<<jump AfterDemo_Hub>>
+===
+
+title: AfterDemo_Hub
+tags: #hub #reach #checkpoint #resume
+---
+<<Solo Aistalt>>
+<<AfterDemoRefresh>>
+<<if $AfterDemo_ErrorCount > 0>>
+    <<jump AfterDemo_Error>>
+<<elseif $AfterDemo_ReadyCount == 0>>
+    <<jump AfterDemo_Finished>>
+<<elseif $CurrentHour >= 18>>
+    <<EndLiveStatus>>
+    Aistalt: 今天先到这里。剩下的未见事件，明天继续。 #line:ad100003
+    -> 进入下一天
+        <<EndDay>>
+    -> 留在桌面，稍后继续
+        <<ChangeController Window_LiveStream CanEndLive yes>>
+<<else>>
+    <<set $LineCount += 1>>
+    <<GenerateNPCOption Live_Entry 3>>
+<<endif>>
+===
+
+title: AfterDemo_Resume
+tags: #checkpoint #resume
+---
+<<OpenWindow Window_LiveStream>>
+<<ChangeController WorkSpace Overlay Blank>>
+<<ChangeController Window_LiveStream Status Live>>
+<<ChangeController Window_LiveStream CanEndLive no>>
+<<ClearOptions>>
+<<ClearDanmaku>>
+<<StartDanmaku>>
+<<StartLiveStatus>>
+<<jump AfterDemo_Hub>>
+===
+
+title: AfterDemo_DayEnd
+tags: #hub #reach
+---
+<<EndLiveStatus>>
+<<StopDanmaku>>
+<<AfterDemoRefresh>>
+<<if $AfterDemo_ErrorCount > 0>>
+    <<jump AfterDemo_Error>>
+<<elseif $AfterDemo_ReadyCount > 0>>
+    <<EndDay>>
+<<else>>
+    <<jump AfterDemo_Finished>>
+<<endif>>
+===
+
+title: AfterDemo_Finished
+tags: #hub #reach
+---
+<<EndLiveStatus>>
+<<StopDanmaku>>
+<<ClearOptions>>
+<<ChangeController Window_LiveStream CanLive no>>
+<<ChangeController Window_LiveStream CanEndLive no>>
+<<AfterDemoRefresh>>
+<<if $AfterDemo_ErrorCount > 0>>
+    <<jump AfterDemo_Error>>
+<<endif>>
+<<if $AfterDemo_UnseenCount == 0>>
+    Aistalt: 随机直播事件已经全部触发过了。感谢陪我聊到这里，监督。 #line:ad100004
+<<else>>
+    Aistalt: 当前剧情分支中，可以继续触发的随机直播事件已经完成。 #line:ad100005
+    Aistalt: 还有 {$AfterDemo_UnseenCount} 个未见事件受到剧情前置或互斥选择限制。F10 可以查看具体条件。 #line:ad100006
+<<endif>>
+<<AfterDemoFinished>>
+-> 结束补充直播，查看新的简报
+    <<AddNews News_Day8_Main_1>>
+    <<AddPlayerInfo Info_Day8>>
+    Aistalt: 等一下，监督。新的简报刚刚送到了。 #line:ad100007
+    Aistalt: 洪水行动……看起来，我们的日常直播就先到这里了。 #line:ad100008
+    Aistalt: 感谢您陪我完成这些连线。Demo 的故事在这里告一段落。 #line:ad100009
+    <<set $AfterDemo_Closed = true>>
+    <<EndGame NormalEnd>>
+-> 留在桌面查看进度
+    <<ChangeController Window_LiveStream CanEndLive yes>>
+===
+
+title: AfterDemo_Error
+tags: #hub #reach
+---
+<<EndLiveStatus>>
+<<ChangeController Window_LiveStream CanLive no>>
+<<ChangeController Window_LiveStream CanEndLive no>>
+Aistalt: 续玩目录暂时没有准备好。请按 F10 查看具体原因，再重新载入存档。 #line:ad100010
+<<AfterDemoFinished>>
+===
+
+title: AfterDemo_Closed
+tags: #hub #reach
+---
+<<ChangeController WorkSpace Overlay Blank>>
+<<ChangeController Window_LiveStream CanLive no>>
+<<ChangeController Window_LiveStream CanEndLive no>>
+===
+
+title: AfterDemo_Variables
+---
+<<declare $AfterDemo_ReadyCount = 0>>
+<<declare $AfterDemo_UnseenCount = 0>>
+<<declare $AfterDemo_ErrorCount = 0>>
+<<declare $AfterDemo_Closed = false>>
+===

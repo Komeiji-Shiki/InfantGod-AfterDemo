@@ -1,0 +1,8 @@
+{
+  "name": "幼神·第八天以后",
+  "version": "1.0.0",
+  "gameVersion": "1.0",
+  "loadOrder": 1050,
+  "author": "Komeiji-Shiki / Graywill",
+  "description": "第八天起继续体验尚未触发的随机直播事件。补看过期事件，保留剧情前置和互斥选择；F10 查看当前存档的事件进度。需要配套 BepInEx 插件。"
+}

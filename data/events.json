@@ -1,0 +1,592 @@
+[
+  {
+    "id": "e0",
+    "entry": "Live_Entry_NoBody",
+    "group": "Entry_NoBody",
+    "subtitle": "one",
+    "character": "NoBody",
+    "displayName": "大安哥 · 第一次连线",
+    "requirement": "原剧情前置条件满足",
+    "file": "Main/Characters/Desert/NoBody/NoBody_1.yarn",
+    "line": 1,
+    "entryFile": "Main/Characters/Desert/NoBody/NoBody.LiveEntry.yarn",
+    "originalConditions": [
+      "CountAvailable(\"Entry_NoBody\")>=1 and $Today-$NoBody_LastTalkDay>=1",
+      "once",
+      "$Today >= 1 and $LineCount>=3"
+    ],
+    "condition": "(true and true) and (true and true)",
+    "oneShotEntry": false
+  },
+  {
+    "id": "e1",
+    "entry": "Live_Entry_Soldier",
+    "group": "Entry_Soldier",
+    "subtitle": "one",
+    "character": "Soldier",
+    "displayName": "卡西迪 · 第一次连线",
+    "requirement": "原剧情前置条件满足",
+    "file": "Main/Characters/Desert/Soldier/Soldier_1/Soldier_1.yarn",
+    "line": 1,
+    "entryFile": "Main/Characters/Desert/Soldier/Soldier.LiveEntry.yarn",
+    "originalConditions": [
+      "CountAvailable(\"Entry_Soldier\")>=1 and $Today-$Soldier_LastTalkDay>=1",
+      "once",
+      "$Today >= 2"
+    ],
+    "condition": "(true and true) and (true)",
+    "oneShotEntry": false
+  },
+  {
+    "id": "e2",
+    "entry": "Live_Entry_Terrorist",
+    "group": "Entry_Terrorist",
+    "subtitle": "one",
+    "character": "Terrorist",
+    "displayName": "艾曼 · 第一次连线",
+    "requirement": "原剧情前置条件满足",
+    "file": "Main/Characters/Desert/Terrorist/Terrorist_1.yarn",
+    "line": 1,
+    "entryFile": "Main/Characters/Desert/Terrorist/Terrorist.LiveEntry.yarn",
+    "originalConditions": [
+      "CountAvailable(\"Entry_Terrorist\")>=1 and $Today-$Terrorist_LastTalkDay>=1",
+      "once",
+      "$Today >= 2"
+    ],
+    "condition": "(true and true) and (true)",
+    "oneShotEntry": false
+  },
+  {
+    "id": "e3",
+    "entry": "Live_Entry_Victim",
+    "group": "Entry_Victim",
+    "subtitle": "one",
+    "character": "Victim",
+    "displayName": "哈妮 · 第一次连线",
+    "requirement": "原剧情前置条件满足",
+    "file": "Main/Characters/Desert/Victim/Victim_1.yarn",
+    "line": 1,
+    "entryFile": "Main/Characters/Desert/Victim/Victim.LiveEntry.yarn",
+    "originalConditions": [
+      "CountAvailable(\"Entry_Victim\")>=1",
+      "once",
+      "$Today >= 2"
+    ],
+    "condition": "(true) and (true)",
+    "oneShotEntry": false
+  },
+  {
+    "id": "e4",
+    "entry": "Live_Entry_Judge",
+    "group": "Entry_Judge",
+    "subtitle": "one",
+    "character": "Judge",
+    "displayName": "迈尔斯 · 第一次连线",
+    "requirement": "原剧情前置条件满足",
+    "file": "Main/Characters/Election/Judge/Judge_1/Judge_1.yarn",
+    "line": 1,
+    "entryFile": "Main/Characters/Election/Judge/Judge.LiveEntry.yarn",
+    "originalConditions": [
+      "CountAvailable(\"Entry_Judge\")>=1",
+      "once",
+      "$Today >= 2"
+    ],
+    "condition": "(true) and (true)",
+    "oneShotEntry": false
+  },
+  {
+    "id": "e5",
+    "entry": "Live_Entry_Masturbator",
+    "group": "Entry_Masturbator",
+    "subtitle": "one",
+    "character": "Masturbator",
+    "displayName": "米娅 · 第一次连线",
+    "requirement": "原剧情前置条件满足",
+    "file": "Main/Characters/Election/Masturbator/Masturbator_1/Masturbator_1.yarn",
+    "line": 1,
+    "entryFile": "Main/Characters/Election/Masturbator/Masturbator.LiveEntry.yarn",
+    "originalConditions": [
+      "CountAvailable(\"Entry_Masturbator\")>=1  and ($Today-$Masturbator_LastTalkDay>=1)",
+      "once",
+      "$Today >=1 and $LineCount<3"
+    ],
+    "condition": "(true  and (true)) and (true and true)",
+    "oneShotEntry": false
+  },
+  {
+    "id": "e6",
+    "entry": "Live_Entry_Masturbator",
+    "group": "Entry_Masturbator",
+    "subtitle": "two",
+    "character": "Masturbator",
+    "displayName": "米娅 · 第二次连线",
+    "requirement": "已触发米娅的第一次连线",
+    "file": "Main/Characters/Election/Masturbator/Masturbator_2/Masturbator_2.yarn",
+    "line": 1,
+    "entryFile": "Main/Characters/Election/Masturbator/Masturbator.LiveEntry.yarn",
+    "originalConditions": [
+      "CountAvailable(\"Entry_Masturbator\")>=1  and ($Today-$Masturbator_LastTalkDay>=1)",
+      "once",
+      "$Today >=4 and visited(\"Entry_Masturbator.one\")"
+    ],
+    "condition": "(true  and (true)) and (true and visited(\"Entry_Masturbator.one\"))",
+    "oneShotEntry": false
+  },
+  {
+    "id": "e7",
+    "entry": "Live_Entry_Gachi",
+    "group": "Entry_Gachi",
+    "subtitle": "one",
+    "character": "Gachi",
+    "displayName": "琪琪 · 第一次连线",
+    "requirement": "已触发环保行动相关事件的前序事件",
+    "file": "Main/Characters/Idol/Gachi/Gachi_1.yarn",
+    "line": 1,
+    "entryFile": "Main/Characters/Idol/Gachi/Gachi.LiveEntry.yarn",
+    "originalConditions": [
+      "CountAvailable(\"Entry_Gachi\")>=1 and ($Today - $Gachi_LastTalkDay>=1)",
+      "once",
+      "$Today >=3 and visited(\"Entry_Greta_1\")"
+    ],
+    "condition": "(true and (true)) and (true and visited(\"Entry_Greta_1\"))",
+    "oneShotEntry": false
+  },
+  {
+    "id": "e8",
+    "entry": "Live_Entry_Gachi",
+    "group": "Entry_Gachi",
+    "subtitle": "two",
+    "character": "Gachi",
+    "displayName": "琪琪 · 第二次连线",
+    "requirement": "已经加入粉丝群；琪琪没有失望离开",
+    "file": "Main/Characters/Idol/Gachi/Gachi_2.yarn",
+    "line": 1,
+    "entryFile": "Main/Characters/Idol/Gachi/Gachi.LiveEntry.yarn",
+    "originalConditions": [
+      "CountAvailable(\"Entry_Gachi\")>=1 and ($Today - $Gachi_LastTalkDay>=1)",
+      "once",
+      "$Today >=4 and $Fan_Join and $Gachi_LeftDisappointed==false"
+    ],
+    "condition": "(true and (true)) and (true and $Fan_Join and $Gachi_LeftDisappointed==false)",
+    "oneShotEntry": false
+  },
+  {
+    "id": "e9",
+    "entry": "Live_Entry_Boss",
+    "group": "Entry_Boss",
+    "subtitle": "",
+    "character": "Boss",
+    "displayName": "匿名 · 随机连线",
+    "requirement": "已接受真菌兰德的货运委托",
+    "file": "Main/Characters/LeftWing/Boss/Boss_1.yarn",
+    "line": 12,
+    "entryFile": "Main/Characters/LeftWing/Boss/Boss_1.yarn",
+    "originalConditions": [
+      "CountAvailable(\"Entry_Boss\")>=1",
+      "$Today > $MoldLand_TransportDay",
+      "$MoldLand_Mission_Transport",
+      "once"
+    ],
+    "condition": "(true) and (true) and ($MoldLand_Mission_Transport)",
+    "oneShotEntry": false
+  },
+  {
+    "id": "e10",
+    "entry": "Live_Entry_MaoGirl",
+    "group": "Entry_MaoGirl",
+    "subtitle": "one",
+    "character": "MaoGirl",
+    "displayName": "罗莎 · 第一次连线",
+    "requirement": "罗莎仍处于可以连线的状态",
+    "file": "Main/Characters/LeftWing/MaoGirl/MaoGirl_1/MaoGirl_1_Phase_1.yarn",
+    "line": 1,
+    "entryFile": "Main/Characters/LeftWing/MaoGirl/MaoGirl.LiveEntry.yarn",
+    "originalConditions": [
+      "CountAvailable(\"Entry_MaoGirl\")>=1",
+      "$MaoGirl_CState == 1",
+      "$Today >=1 and $LineCount>=3",
+      "once"
+    ],
+    "condition": "(true) and ($MaoGirl_CState == 1) and (true and true)",
+    "oneShotEntry": false
+  },
+  {
+    "id": "e11",
+    "entry": "Live_Entry_MaoGirl",
+    "group": "Entry_MaoGirl",
+    "subtitle": "two",
+    "character": "MaoGirl",
+    "displayName": "罗莎 · 第二次连线",
+    "requirement": "已触发罗莎的第一次连线；罗莎仍处于可以连线的状态；已满足罗莎后续事件的参与条件",
+    "file": "Main/Characters/LeftWing/MaoGirl/MaoGirl_2/MaoGirl_2.yarn",
+    "line": 2,
+    "entryFile": "Main/Characters/LeftWing/MaoGirl/MaoGirl.LiveEntry.yarn",
+    "originalConditions": [
+      "CountAvailable(\"Entry_MaoGirl\")>=1",
+      "$MaoGirl_CState == 1",
+      "$Today ==4 and visited(\"Entry_MaoGirl.one\") and $Forecast_Join>=1 and $CurrentHour>=18",
+      "once"
+    ],
+    "condition": "(true) and ($MaoGirl_CState == 1) and (true and visited(\"Entry_MaoGirl.one\") and $Forecast_Join>=1 and true)",
+    "oneShotEntry": false
+  },
+  {
+    "id": "e12",
+    "entry": "Live_Entry_Muslim",
+    "group": "Entry_Muslim",
+    "subtitle": "",
+    "character": "Muslim",
+    "displayName": "阿日 · 随机连线",
+    "requirement": "原剧情前置条件满足",
+    "file": "Main/Characters/LeftWing/Muslim/Muslim_1/Muslim_1.yarn",
+    "line": 1,
+    "entryFile": "Main/Characters/LeftWing/Muslim/Muslim.LiveEntry.yarn",
+    "originalConditions": [
+      "CountAvailable(\"Entry_Muslim\")>=1",
+      "once",
+      "$Today >=2"
+    ],
+    "condition": "(true) and (true)",
+    "oneShotEntry": false
+  },
+  {
+    "id": "e13",
+    "entry": "Live_Entry_Vmz",
+    "group": "Entry_Vmz",
+    "subtitle": "one",
+    "character": "Vmz",
+    "displayName": "V · 第一次连线",
+    "requirement": "已触发罗莎的前序事件",
+    "file": "Main/Characters/LeftWing/Vmz/Vmz_1/Vmz_1.yarn",
+    "line": 1,
+    "entryFile": "Main/Characters/LeftWing/Vmz/Vmz.LiveEntry.yarn",
+    "originalConditions": [
+      "CountAvailable(\"Entry_Vmz\")>=1",
+      "once",
+      "$Today>=2 and visited(\"Entry_MaoGirl\")"
+    ],
+    "condition": "(true) and (true and visited(\"Entry_MaoGirl\"))",
+    "oneShotEntry": false
+  },
+  {
+    "id": "e14",
+    "entry": "Live_Entry_BotChecker",
+    "group": "Entry_BotChecker",
+    "subtitle": "one",
+    "character": "BotChecker",
+    "displayName": "菲利克斯 · 第一次连线",
+    "requirement": "原剧情前置条件满足",
+    "file": "Main/Characters/Minor/BotChecker/BotChecker_1.yarn",
+    "line": 1,
+    "entryFile": "Main/Characters/Minor/BotChecker/BotChecker.LiveEntry.yarn",
+    "originalConditions": [
+      "CountAvailable(\"Entry_BotChecker\")>=1 and ($Today - $BotChecker_LastTalkDay >= 1)",
+      "once",
+      "$Today >=1 and $LineCount<3"
+    ],
+    "condition": "(true and (true)) and (true and true)",
+    "oneShotEntry": false
+  },
+  {
+    "id": "e15",
+    "entry": "Live_Entry_BotChecker",
+    "group": "Entry_BotChecker",
+    "subtitle": "two",
+    "character": "BotChecker",
+    "displayName": "菲利克斯 · 第二次连线",
+    "requirement": "已触发菲利克斯的第一次连线",
+    "file": "Main/Characters/Minor/BotChecker/BotChecker_2.yarn",
+    "line": 1,
+    "entryFile": "Main/Characters/Minor/BotChecker/BotChecker.LiveEntry.yarn",
+    "originalConditions": [
+      "CountAvailable(\"Entry_BotChecker\")>=1 and ($Today - $BotChecker_LastTalkDay >= 1)",
+      "$Today >= 3 and visited(\"Entry_BotChecker.one\")",
+      "once"
+    ],
+    "condition": "(true and (true)) and (true and visited(\"Entry_BotChecker.one\"))",
+    "oneShotEntry": false
+  },
+  {
+    "id": "e16",
+    "entry": "Live_Entry_BotChecker",
+    "group": "Entry_BotChecker",
+    "subtitle": "three_war",
+    "character": "BotChecker",
+    "displayName": "菲利克斯 · 后续：战争",
+    "requirement": "已触发菲利克斯的第二次连线；菲利克斯的前序选择为“下车”",
+    "file": "Main/Characters/Minor/BotChecker/BotChecker_3.yarn",
+    "line": 1,
+    "entryFile": "Main/Characters/Minor/BotChecker/BotChecker.LiveEntry.yarn",
+    "originalConditions": [
+      "CountAvailable(\"Entry_BotChecker\")>=1 and ($Today - $BotChecker_LastTalkDay >= 1)",
+      "once",
+      "visited(\"Entry_BotChecker.two\") and $BotChecker_Case == \"GetOff\" and $Today>=5"
+    ],
+    "condition": "(true and (true)) and (visited(\"Entry_BotChecker.two\") and $BotChecker_Case == \"GetOff\" and true)",
+    "oneShotEntry": false
+  },
+  {
+    "id": "e17",
+    "entry": "Live_Entry_BotChecker",
+    "group": "Entry_BotChecker",
+    "subtitle": "three_commi",
+    "character": "BotChecker",
+    "displayName": "菲利克斯 · 后续：共产国际",
+    "requirement": "已触发菲利克斯的第二次连线；菲利克斯的前序选择为“投降”",
+    "file": "Main/Characters/Minor/BotChecker/BotChecker_3.yarn",
+    "line": 71,
+    "entryFile": "Main/Characters/Minor/BotChecker/BotChecker.LiveEntry.yarn",
+    "originalConditions": [
+      "CountAvailable(\"Entry_BotChecker\")>=1 and ($Today - $BotChecker_LastTalkDay >= 1)",
+      "visited(\"Entry_BotChecker.two\") and $Today>=5",
+      "$BotChecker_Case == \"Surrender\"",
+      "once"
+    ],
+    "condition": "(true and (true)) and (visited(\"Entry_BotChecker.two\") and true) and ($BotChecker_Case == \"Surrender\")",
+    "oneShotEntry": false
+  },
+  {
+    "id": "e18",
+    "entry": "Live_Entry_BotChecker",
+    "group": "Entry_BotChecker",
+    "subtitle": "three_main",
+    "character": "BotChecker",
+    "displayName": "菲利克斯 · 后续：西部",
+    "requirement": "已触发菲利克斯的第二次连线；菲利克斯的前序选择为“前往西部”",
+    "file": "Main/Characters/Minor/BotChecker/BotChecker_3.yarn",
+    "line": 109,
+    "entryFile": "Main/Characters/Minor/BotChecker/BotChecker.LiveEntry.yarn",
+    "originalConditions": [
+      "CountAvailable(\"Entry_BotChecker\")>=1 and ($Today - $BotChecker_LastTalkDay >= 1)",
+      "visited(\"Entry_BotChecker.two\") and $Today>=5",
+      "$BotChecker_Case == \"West\"",
+      "once"
+    ],
+    "condition": "(true and (true)) and (visited(\"Entry_BotChecker.two\") and true) and ($BotChecker_Case == \"West\")",
+    "oneShotEntry": false
+  },
+  {
+    "id": "e19",
+    "entry": "Live_Entry_BotChecker",
+    "group": "Entry_BotChecker",
+    "subtitle": "three_arid",
+    "character": "BotChecker",
+    "displayName": "菲利克斯 · 后续：荒地",
+    "requirement": "已触发菲利克斯的第二次连线；菲利克斯的前序选择为“前往荒地”",
+    "file": "Main/Characters/Minor/BotChecker/BotChecker_3.yarn",
+    "line": 130,
+    "entryFile": "Main/Characters/Minor/BotChecker/BotChecker.LiveEntry.yarn",
+    "originalConditions": [
+      "CountAvailable(\"Entry_BotChecker\")>=1 and ($Today - $BotChecker_LastTalkDay >= 1)",
+      "visited(\"Entry_BotChecker.two\") and $Today>=6",
+      "$BotChecker_Case ==\"Arid\"",
+      "once"
+    ],
+    "condition": "(true and (true)) and (visited(\"Entry_BotChecker.two\") and true) and ($BotChecker_Case ==\"Arid\")",
+    "oneShotEntry": false
+  },
+  {
+    "id": "e20",
+    "entry": "Live_Entry_Commissar",
+    "group": "Entry_Commissar",
+    "subtitle": "",
+    "character": "Commissar",
+    "displayName": "娜斯佳 · 随机连线",
+    "requirement": "已触发菲利克斯的共产国际去向事件",
+    "file": "Main/Characters/Minor/Commissar/Commissar_1.yarn",
+    "line": 1,
+    "entryFile": "Main/Characters/Minor/Commissar/Commissar.LiveEntry.yarn",
+    "originalConditions": [
+      "CountAvailable(\"Entry_Commissar\")>=1",
+      "visited(\"Entry_BotChecker.three_commi\") and $Today>=6",
+      "once"
+    ],
+    "condition": "(true) and (visited(\"Entry_BotChecker.three_commi\") and true)",
+    "oneShotEntry": false
+  },
+  {
+    "id": "e21",
+    "entry": "Live_Entry_Gothic",
+    "group": "Entry_Gothic",
+    "subtitle": "",
+    "character": "Gothic",
+    "displayName": "瓦里娅 · 随机连线",
+    "requirement": "原剧情前置条件满足",
+    "file": "Main/Characters/Minor/Gothic/Gothic_1.yarn",
+    "line": 17,
+    "entryFile": "Main/Characters/Minor/Gothic/Gothic_1.yarn",
+    "originalConditions": [
+      "once",
+      "$Today >= 3 and $Minor_Token==true"
+    ],
+    "condition": "(true and true)",
+    "oneShotEntry": true
+  },
+  {
+    "id": "e22",
+    "entry": "Live_Entry_Mesuga",
+    "group": "Entry_Mesuga",
+    "subtitle": "",
+    "character": "Mesuga",
+    "displayName": "一之濑瑠夏 · 随机连线",
+    "requirement": "原剧情前置条件满足",
+    "file": "Main/Characters/Minor/Mesuga/Mesuga_1.yarn",
+    "line": 15,
+    "entryFile": "Main/Characters/Minor/Mesuga/Mesuga_1.yarn",
+    "originalConditions": [
+      "once",
+      "$Today >= 3 and $Minor_Token==true"
+    ],
+    "condition": "(true and true)",
+    "oneShotEntry": true
+  },
+  {
+    "id": "e23",
+    "entry": "Live_Entry_Veteran",
+    "group": "Entry_Veteran",
+    "subtitle": "",
+    "character": "Veteran",
+    "displayName": "科兹洛夫 · 随机连线",
+    "requirement": "原剧情前置条件满足",
+    "file": "Main/Characters/Minor/Veteran/Veteran.yarn",
+    "line": 13,
+    "entryFile": "Main/Characters/Minor/Veteran/Veteran.yarn",
+    "originalConditions": [
+      "once",
+      "$Today >= 4 and $Minor_Token==true"
+    ],
+    "condition": "(true and true)",
+    "oneShotEntry": true
+  },
+  {
+    "id": "e24",
+    "entry": "Live_Entry_Cop",
+    "group": "Entry_Cop_1",
+    "subtitle": "",
+    "character": "Cop",
+    "displayName": "科尔瓦斯基 · 随机连线",
+    "requirement": "原剧情前置条件满足",
+    "file": "Main/Characters/Overseer/Cop/Cop_1/Cop_1.yarn",
+    "line": 1,
+    "entryFile": "Main/Characters/Overseer/Cop/Cop.LiveEntry.yarn",
+    "originalConditions": [
+      "once",
+      "$Today >=2 and $Today <=5"
+    ],
+    "condition": "(true and true)",
+    "oneShotEntry": true
+  },
+  {
+    "id": "e25",
+    "entry": "Live_Entry_MoldLand",
+    "group": "Entry_MoldLand",
+    "subtitle": "one",
+    "character": "MoldLand",
+    "displayName": "真菌兰德 · 第一次连线",
+    "requirement": "原剧情前置条件满足",
+    "file": "Main/Characters/Overseer/MoldLand/MoldLand_1/MoldLand_1.yarn",
+    "line": 1,
+    "entryFile": "Main/Characters/Overseer/MoldLand/MoldLand.LiveEntry.yarn",
+    "originalConditions": [
+      "CountAvailable(\"Entry_MoldLand\")>=1 and ($Today-$MoldLand_LastTalkDay>=1)",
+      "once",
+      "$Today >=1 and $LineCount<3"
+    ],
+    "condition": "(true and (true)) and (true and true)",
+    "oneShotEntry": false
+  },
+  {
+    "id": "e26",
+    "entry": "Live_Entry_MoldLand",
+    "group": "Entry_MoldLand",
+    "subtitle": "two",
+    "character": "MoldLand",
+    "displayName": "真菌兰德 · 第二次连线",
+    "requirement": "已触发真菌兰德的第一次连线",
+    "file": "Main/Characters/Overseer/MoldLand/MoldLand_2/MoldLand_2.yarn",
+    "line": 1,
+    "entryFile": "Main/Characters/Overseer/MoldLand/MoldLand.LiveEntry.yarn",
+    "originalConditions": [
+      "CountAvailable(\"Entry_MoldLand\")>=1 and ($Today-$MoldLand_LastTalkDay>=1)",
+      "once",
+      "$Today >=4 and visited(\"Entry_MoldLand.one\")"
+    ],
+    "condition": "(true and (true)) and (true and visited(\"Entry_MoldLand.one\"))",
+    "oneShotEntry": false
+  },
+  {
+    "id": "e27",
+    "entry": "Live_Entry_Nana",
+    "group": "Entry_Nana",
+    "subtitle": "",
+    "character": "Nana",
+    "displayName": "娜娜 · 随机连线",
+    "requirement": "已经认识娜娜",
+    "file": "Main/Characters/Overseer/Nana/Nana_1/Nana_1.yarn",
+    "line": 16,
+    "entryFile": "Main/Characters/Overseer/Nana/Nana_1/Nana_1.yarn",
+    "originalConditions": [
+      "once",
+      "$Know_Nana"
+    ],
+    "condition": "($Know_Nana)",
+    "oneShotEntry": true
+  },
+  {
+    "id": "e28",
+    "entry": "Live_Entry_Nerd_Day2",
+    "group": "Entry_Nerd",
+    "subtitle": "one",
+    "character": "Nerd",
+    "displayName": "纪子 · 第一次连线",
+    "requirement": "原剧情前置条件满足",
+    "file": "Main/Characters/Overseer/Nerd/Nerd_1/Nerd_1.yarn",
+    "line": 1,
+    "entryFile": "Main/Characters/Overseer/Nerd/Nerd.LiveEntry.yarn",
+    "originalConditions": [
+      "CountAvailable(\"Entry_Nerd\")>=1 and $Today-$Nerd_LastTalkDay>=1",
+      "once",
+      "$Today >=2"
+    ],
+    "condition": "(true and true) and (true)",
+    "oneShotEntry": false
+  },
+  {
+    "id": "e29",
+    "entry": "Live_Entry_Nerd_Day2",
+    "group": "Entry_Nerd",
+    "subtitle": "two",
+    "character": "Nerd",
+    "displayName": "纪子 · 第二次连线",
+    "requirement": "已触发纪子的第一次连线",
+    "file": "Main/Characters/Overseer/Nerd/Nerd_2/Nerd_2.yarn",
+    "line": 1,
+    "entryFile": "Main/Characters/Overseer/Nerd/Nerd.LiveEntry.yarn",
+    "originalConditions": [
+      "CountAvailable(\"Entry_Nerd\")>=1 and $Today-$Nerd_LastTalkDay>=1",
+      "once",
+      "$Today >=4 and visited(\"Entry_Nerd.one\")"
+    ],
+    "condition": "(true and true) and (true and visited(\"Entry_Nerd.one\"))",
+    "oneShotEntry": false
+  },
+  {
+    "id": "e30",
+    "entry": "Live_Entry_Journalist",
+    "group": "Entry_Journalist",
+    "subtitle": "one",
+    "character": "Journalist",
+    "displayName": "加里克 · 第一次连线",
+    "requirement": "原剧情前置条件满足",
+    "file": "Main/Characters/Report/Journalist/Journalist_1/Journalist_1.yarn",
+    "line": 1,
+    "entryFile": "Main/Characters/Report/Journalist/Journalist.LiveEntry.yarn",
+    "originalConditions": [
+      "CountAvailable(\"Entry_Journalist\")>=1",
+      "once",
+      "$Today >= 3"
+    ],
+    "condition": "(true) and (true)",
+    "oneShotEntry": false
+  }
+]

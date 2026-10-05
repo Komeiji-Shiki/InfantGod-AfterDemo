@@ -1,0 +1,10 @@
+原作：Infant God（幼神）
+作者：colsalley
+来源：https://store.steampowered.com/app/4238140/_/
+原作导出内容许可：Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International（CC BY-NC-SA 4.0）
+许可地址：https://creativecommons.org/licenses/by-nc-sa/4.0/
+
+幼神·第八天以后的续玩流程、事件整理、插件与构建工具：Komeiji-Shiki / Graywill。
+本项目源码、事件目录和剧情流程改编按 CC BY-NC-SA 4.0 分享，保持署名、非商业及相同许可。
+原作剧情不随插件复制；运行时调用用户已经安装的原作内容。
+第三方加载器保留各自许可证与署名，见 THIRD-PARTY-NOTICES.md 和 LICENSES。
