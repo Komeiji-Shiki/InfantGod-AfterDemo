@@ -15,7 +15,7 @@ namespace Graywill.InfantGodAfterDemo
     internal static class DailyInformation
     {
         internal const string BriefKey = "Info_AfterDemo_SupplementalDay";
-        internal const string PublishedDayKey = "$AfterDemo_NewspaperPublishedDay";
+        internal const string SidebarDayKey = "$AfterDemo_SidebarPublishedDay";
         private static readonly FieldInfo InfoKeys = AccessTools.Field(typeof(SituationManager), "_playerInfoKeys");
         private static readonly MethodInfo RefreshNews = AccessTools.Method(typeof(NewspaperUIManager), "UpdateNewspaperUI");
 
@@ -27,6 +27,7 @@ namespace Graywill.InfantGodAfterDemo
             if (!SupplementalDay) return;
             var situation = SituationManager.Instance;
             if (situation != null) situation.AddPlayerInfo(BriefKey);
+            PrepareSidebar(NewspaperManager.Instance);
             foreach (var ui in UnityEngine.Object.FindObjectsOfType<NewspaperUIManager>()) RefreshNews.Invoke(ui, null);
         }
 
@@ -41,12 +42,48 @@ namespace Graywill.InfantGodAfterDemo
             else keys.Remove(BriefKey);
         }
 
-        internal static bool PublishedToday()
+        private static readonly FieldInfo MainSlots = AccessTools.Field(typeof(NewspaperManager), "mainNewsSlots");
+        private static readonly FieldInfo MainQueue = AccessTools.Field(typeof(NewspaperManager), "mainNewsQueue");
+        private static readonly FieldInfo MinorQueue = AccessTools.Field(typeof(NewspaperManager), "minorNewsQueue");
+        private static readonly FieldInfo MinorPublished = AccessTools.Field(typeof(NewspaperManager), "publishedMinorNews");
+        private static readonly FieldInfo QueueDay = AccessTools.Field(typeof(NewspaperManager), "queueStateDay");
+        private static readonly MethodInfo EnsureQueueDay = AccessTools.Method(typeof(NewspaperManager), "EnsureQueueStateForCurrentDay");
+        private static readonly MethodInfo FillSlots = AccessTools.Method(typeof(NewspaperManager), "FillEmptySlots");
+        private static readonly MethodInfo RegisterUsed = AccessTools.Method(typeof(NewspaperManager), "RegisterPublishedRandomNews");
+        private static readonly FieldInfo PublishedEvent = AccessTools.Field(typeof(NewspaperManager), "OnNewspaperPublished");
+
+        internal static void PrepareSidebar(NewspaperManager manager)
         {
-            var runner = AfterDemoHost.Instance?.Runner;
-            float day;
-            return runner?.VariableStorage != null && runner.VariableStorage.TryGetValue(PublishedDayKey, out day)
-                && GameTimeManager.Instance != null && day == GameTimeManager.Instance.GetCurrentDay();
+            var storage = AfterDemoHost.Instance?.Runner?.VariableStorage;
+            if (!SupplementalDay || manager == null || storage == null) return;
+            int day = GameTimeManager.Instance.GetCurrentDay();
+            float preparedDay;
+            if (storage.TryGetValue(SidebarDayKey, out preparedDay) && preparedDay == day) return;
+            // 原版或旧存档已经保存了当天侧栏时直接采用，不因重复进入欢迎页而重抽。
+            if ((int)QueueDay.GetValue(manager) == day && manager.GetPublishedMinorNews().Count > 0)
+            {
+                storage.SetValue(SidebarDayKey, (float)day);
+                return;
+            }
+            EnsureQueueDay.Invoke(manager, null);
+            var mainQueue = (List<News>)MainQueue.GetValue(manager);
+            int mainSlots = (int)MainSlots.GetValue(manager);
+            try
+            {
+                // 只让原生补空位函数处理侧栏；它负责日期、priority² 权重、队列排重和未读随机池。
+                // 主新闻的内容与待发布队列均保留，不让补充日提前生成主线新闻。
+                MainSlots.SetValue(manager, mainQueue.Count);
+                FillSlots.Invoke(manager, new object[] { day });
+            }
+            finally { MainSlots.SetValue(manager, mainSlots); }
+            var queue = (List<News>)MinorQueue.GetValue(manager);
+            var published = (List<News>)MinorPublished.GetValue(manager);
+            published.Clear(); published.AddRange(queue); queue.Clear();
+            RegisterUsed.Invoke(manager, null);
+            manager.CachePublishedNewsIcons();
+            storage.SetValue(SidebarDayKey, (float)day);
+            (PublishedEvent.GetValue(manager) as Action)?.Invoke();
+            Plugin.Log.LogInfo("补充日侧栏按原生随机池发布：Day " + day + "，" + published.Count + " 条。");
         }
     }
 
@@ -60,10 +97,9 @@ namespace Graywill.InfantGodAfterDemo
     internal static class PreservePublishedEditionPatch
     {
         private static readonly FieldInfo Main = AccessTools.Field(typeof(NewspaperManager), "publishedMainNews");
-        private static readonly FieldInfo Minor = AccessTools.Field(typeof(NewspaperManager), "publishedMinorNews");
         private sealed class Edition
         {
-            internal List<News> Main, Minor;
+            internal List<News> Main;
         }
         private static IEnumerable<MethodBase> TargetMethods()
         {
@@ -74,19 +110,15 @@ namespace Graywill.InfantGodAfterDemo
         {
             __state = DailyInformation.SupplementalDay ? new Edition
             {
-                Main = __instance.GetPublishedMainNews(), Minor = __instance.GetPublishedMinorNews()
+                Main = __instance.GetPublishedMainNews()
             } : null;
         }
         private static void Postfix(NewspaperManager __instance, Edition __state)
         {
             if (__state == null) return;
-            // 只保护原生换日清理之前真实存在的版面；读档和重置仍沿原生规则替换全部新闻状态。
+            // 只保留实际已发布的主新闻；侧栏仍按原生规则清空并在补充日重新抽取。
             var main = (List<News>)Main.GetValue(__instance);
-            var minor = (List<News>)Minor.GetValue(__instance);
-            if (main.Count == 0 && minor.Count == 0)
-            {
-                main.AddRange(__state.Main); minor.AddRange(__state.Minor);
-            }
+            if (main.Count == 0) main.AddRange(__state.Main);
         }
     }
 
@@ -98,7 +130,9 @@ namespace Graywill.InfantGodAfterDemo
             // 在原生发布回调刷新页面之前记录。若版面为空，UI 仍会使用明确的无记录说明。
             var host = AfterDemoHost.Instance;
             if (DailyInformation.SupplementalDay && host?.Runner?.VariableStorage != null)
-                host.Runner.VariableStorage.SetValue(DailyInformation.PublishedDayKey, (float)GameTimeManager.Instance.GetCurrentDay());
+            {
+                host.Runner.VariableStorage.SetValue(DailyInformation.SidebarDayKey, (float)GameTimeManager.Instance.GetCurrentDay());
+            }
         }
     }
 
@@ -109,59 +143,44 @@ namespace Graywill.InfantGodAfterDemo
         {
             if (!DailyInformation.SupplementalDay) return;
             Plugin.Log.LogInfo("续玩读档新闻原始记录：主新闻=" + (saveData?.publishedMainNews?.Count ?? 0)
-                + "，次新闻=" + (saveData?.publishedMinorNews?.Count ?? 0) + "；缺失的历史版面不会补造。");
+                + "，次新闻=" + (saveData?.publishedMinorNews?.Count ?? 0) + "；空侧栏将按当日原生随机池补充，主线历史不补造。");
         }
+        private static void Postfix(NewspaperManager __instance) { DailyInformation.PrepareSidebar(__instance); }
     }
 
     [HarmonyPatch(typeof(NewspaperUIManager), "UpdateNewspaperUI")]
     internal static class SupplementalNewspaperPatch
     {
         private static readonly FieldInfo Labels = AccessTools.Field(typeof(NewspaperUIManager), "_labels");
-        private static readonly Dictionary<GTextField, string> OriginalIssueText = new Dictionary<GTextField, string>();
-
-        private static void Prefix()
-        {
-            // 先恢复原生期数模板，让原生 SetVar/FlushVars 正常运行；停用后也能立即恢复原版报头。
-            foreach (var pair in OriginalIssueText.ToArray())
-            {
-                if (NativeUiAccess.Alive(pair.Key)) pair.Key.text = pair.Value;
-                else OriginalIssueText.Remove(pair.Key);
-            }
-        }
-
         private static void Postfix(NewspaperUIManager __instance)
         {
             if (!DailyInformation.SupplementalDay) return;
             var manager = NewspaperManager.Instance;
             if (manager == null) return;
-            bool hasEdition = manager.GetPublishedMainNews().Count > 0 || manager.GetPublishedMinorNews().Count > 0;
-            if (hasEdition && DailyInformation.PublishedToday()) return;
+            bool hasMain = manager.GetPublishedMainNews().Count > 0;
+            bool hasSidebar = manager.GetPublishedMinorNews().Count > 0;
+            if (hasMain) return;
             var labels = Labels.GetValue(__instance) as IEnumerable<GComponent>;
             if (labels == null) return;
             foreach (var label in labels)
             {
                 if (!NativeUiAccess.Alive(label)) continue;
-                var issue = label.GetChild("Times")?.asTextField;
-                if (NativeUiAccess.Alive(issue))
-                {
-                    if (!OriginalIssueText.ContainsKey(issue)) OriginalIssueText.Add(issue, issue.text);
-                    issue.text = hasEdition ? "本日无新增 · 重阅" : "本日无新增";
-                }
-                if (hasEdition) continue;
                 // 使用原生新闻面板显示状态，不创建或发布一条虚构的世界新闻。
                 var panel = label.GetChild("Panel_NewsPaper_Main_1")?.asCom;
                 if (!NativeUiAccess.Alive(panel)) continue;
                 panel.visible = true;
-                if (panel is GLabel nativeLabel) nativeLabel.title = "补充直播日：本日无新增新闻";
+                if (panel is GLabel nativeLabel) nativeLabel.title = "补充直播日：本日暂无主线新闻";
                 else
                 {
                     var title = panel.GetChild("title");
-                    if (NativeUiAccess.Alive(title)) title.text = "补充直播日：本日无新增新闻";
+                    if (NativeUiAccess.Alive(title)) title.text = "补充直播日：本日暂无主线新闻";
                 }
                 var description = panel.GetChild("desc");
                 if (NativeUiAccess.Alive(description)) description.text =
                     "今天继续安排尚未触发的直播事件。新的主线简报将在补充直播收束后发布。\n\n"
-                    + "当前存档没有保留可回看的已发布版面，因此这里只显示本日状态，不补写未发生或未记录的新闻。";
+                    + (hasSidebar ? "右侧随机新闻栏继续按原生日程供稿。"
+                        : "右侧当前没有符合原生日期及未读条件的随机新闻。")
+                    + "当前存档没有保留主线版面，这里仅显示日程说明，不补写主线历史。";
                 var image = panel.GetController("HasImg");
                 if (image != null) image.selectedPage = "no";
             }

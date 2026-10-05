@@ -150,5 +150,5 @@ title: AfterDemo_Variables
 <<declare $AfterDemo_UnseenCount = 0>>
 <<declare $AfterDemo_ErrorCount = 0>>
 <<declare $AfterDemo_Closed = false>>
-<<declare $AfterDemo_NewspaperPublishedDay = 0>>
+<<declare $AfterDemo_SidebarPublishedDay = 0>>
 ===
