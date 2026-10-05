@@ -16,6 +16,8 @@
 
 ## 安装
 
+从 [GitHub 发行版](https://github.com/Komeiji-Shiki/InfantGod-AfterDemo/releases/latest) 下载 `InfantGod-AfterDemo-v1.0.2.zip`。安装包包含插件、BepInEx 加载器、`Install-Mod.ps1` 安装脚本及 `Uninstall-Mod.ps1` 卸载脚本，当前采用 PowerShell 脚本安装。
+
 1. 关闭游戏，将发布 ZIP 解压到任意目录。
 2. 在解压后的安装包目录打开 PowerShell，运行：
 

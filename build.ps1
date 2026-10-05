@@ -28,7 +28,7 @@ foreach ($taskName in @('winhttp.dll','doorstop_config.ini','.doorstop_version')
 Copy-Item -LiteralPath (Join-Path $PSScriptRoot 'src\bin\Release\netstandard2.1\Graywill.InfantGodAfterDemo.dll') -Destination $taskPlugin -Force
 Copy-Item -LiteralPath (Join-Path $PSScriptRoot 'data\events.json') -Destination $taskPlugin -Force
 Copy-Item -LiteralPath (Join-Path $PSScriptRoot 'native-mod\InfantGodAfterDemo') -Destination $taskNative -Recurse -Force
-foreach ($taskName in @('Install-Mod.ps1','Uninstall-Mod.ps1','Installer-Common.ps1','README.md','ATTRIBUTIONS.txt','THIRD-PARTY-NOTICES.md','LICENSES')) {
+foreach ($taskName in @('Install-Mod.ps1','Uninstall-Mod.ps1','Installer-Common.ps1','README.md','ATTRIBUTIONS.txt','THIRD-PARTY-NOTICES.md','LICENSE','LICENSES')) {
     Copy-Item -LiteralPath (Join-Path $PSScriptRoot $taskName) -Destination $taskOutput -Recurse -Force
 }
 $taskZip = Join-Path $PSScriptRoot 'dist\InfantGod-AfterDemo-v1.0.2.zip'

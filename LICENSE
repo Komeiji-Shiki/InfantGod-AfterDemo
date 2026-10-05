@@ -1,0 +1,14 @@
+InfantGod After Demo / 幼神·第八天以后
+
+本项目源码、事件目录和剧情流程改编沿用 Creative Commons
+Attribution-NonCommercial-ShareAlike 4.0 International（CC BY-NC-SA 4.0）许可。
+
+许可全文：LICENSES/CC-BY-NC-SA-4.0.txt
+官方许可：https://creativecommons.org/licenses/by-nc-sa/4.0/legalcode
+
+原作：Infant God / 幼神；作者：colsalley。
+插件实现、事件整理及续玩流程：Komeiji-Shiki / Graywill。
+详细署名：ATTRIBUTIONS.txt。
+
+BepInEx、Unity Doorstop、Harmony、MonoMod、Mono.Cecil 等第三方组件
+保留各自许可证，见 THIRD-PARTY-NOTICES.md 和 LICENSES 目录。
