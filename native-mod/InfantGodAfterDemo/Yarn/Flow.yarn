@@ -105,7 +105,7 @@ tags: #hub #reach
     <<jump AfterDemo_Error>>
 <<endif>>
 <<if $AfterDemo_UnseenCount == 0>>
-    Aistalt: 随机直播事件已经全部触发过了。感谢陪我聊到这里，监督。 #line:ad100004
+    Aistalt: 当前续玩目录中的随机直播事件已经全部触发过了。感谢陪我聊到这里，监督。 #line:ad100004
 <<else>>
     Aistalt: 当前剧情分支中，可以继续触发的随机直播事件已经完成。 #line:ad100005
     Aistalt: 还有 {$AfterDemo_UnseenCount} 个未见事件受到剧情前置或互斥选择限制。F10 可以查看具体条件。 #line:ad100006

@@ -51,7 +51,12 @@ namespace Graywill.InfantGodAfterDemo
                             if (left.ScheduleOnly) return right;
                             if (right.ScheduleOnly) return left;
                         }
-                        else if (left.ScheduleOnly || right.ScheduleOnly) return new Part("true", true);
+                        else
+                        {
+                            // 删除排期子句后保留另一侧剧情条件，避免 or/not 组合把剧情限制一并抹掉。
+                            if (left.ScheduleOnly) return right;
+                            if (right.ScheduleOnly) return left;
+                        }
                         return new Part("(" + left.Text + ") " + operation + " (" + right.Text + ")");
                     }
                 }
